@@ -1,0 +1,31 @@
+{
+  "name": "simplechordpro_pkg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esack7/SimpleChordProPkg.git"
+  },
+  "keywords": [
+    "chordpro",
+    "transpose",
+    "chords",
+    "music"
+  ],
+  "author": "Isaac Heist",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/esack7/SimpleChordProPkg/issues"
+  },
+  "homepage": "https://github.com/esack7/SimpleChordProPkg#readme",
+  "devDependencies": {
+    "jest": "^26.5.2"
+  }
+}
