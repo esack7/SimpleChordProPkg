@@ -9,7 +9,7 @@ An NPM package to convert song lyric and chords to and from the ChordPro format.
 ## Usage
 
 ```javascript
-import { createCP, parseCP, transpose } from simplechordpro;
+import { createCP, parseCP, transpose, keys } from simplechordpro;
 ```
 
 ### createCP
@@ -52,6 +52,10 @@ Output
 ```
 "[Am]I’m gonna [E]take my horse to the [G]old town road"
 ```
+* the ```key``` of Solfège can only be used as the 3rd parameter, it can't transpose from Solfège to another key
+
+### keys
+```keys``` is an array of keys, including Nashville and Solfège used by the program
 
 ### This package is used in the following:
 * www.simplechordpro.com/
