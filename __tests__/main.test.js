@@ -1,6 +1,6 @@
 const { describe, test, expect } = require("@jest/globals");
 
-const { createCP, parseCP, transpose } = require('./../index.js');
+const { createCP, parseCP, transpose, keys } = require('./../index.js');
 
 const chordLyric = `G              D\nHello there birdie!`;
 const chordpro = `[G]Hello there bir[D]die!`;
@@ -16,5 +16,8 @@ describe('Testing the exposed functionality', () => {
     })
     test('Transpose function will work', () => {
         expect(transpose(chordproSimpleKeyOfA, 'A', 'G')).toBe(chordproSimpleKeyOfG);
+    })
+    test('Keys is an array of keys', () => {
+        expect(keys[0]).toBe('A');
     })
 })
