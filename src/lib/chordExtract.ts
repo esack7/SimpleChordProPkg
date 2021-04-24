@@ -1,10 +1,10 @@
-const { keyChords } = require('./chords');
+import { keyChords } from './chords';
 
-module.exports = (chord, currentKey) => {
+const extract =  (chord: string, currentKey: string): ChordCompositionInterface => {
   let findChord = true;
-  const chordObj = { chord: '', postfix: '' };
-  const currentKeyArr = keyChords[currentKey];
-  chord.split('').map((ele, idx) => {
+  const chordObj: ChordCompositionInterface = { chord: '', postfix: '' };
+  const currentKeyArr = keyChords.get(currentKey)!;
+  chord.split('').forEach((ele, idx) => {
     if (findChord) {
       chordObj.chord += ele;
       if (
@@ -16,7 +16,8 @@ module.exports = (chord, currentKey) => {
     } else {
       chordObj.postfix += ele;
     }
-    return null;
   });
   return chordObj;
 };
+
+export { extract };

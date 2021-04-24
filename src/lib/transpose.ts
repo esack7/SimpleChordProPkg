@@ -1,9 +1,9 @@
-const { keyChords } = require('./chords');
-const extract = require('./chordExtract');
-const createChordpro = require('./create_chordpro');
-const parseChordpro = require('./parse_chordpro');
+import { keyChords } from './chords';
+import { extract } from './chordExtract';
+import { create_chordpro as createChordpro} from './create_chordpro';
+import { parse } from './parse_chordpro';
 
-const transpose = (song, currentKey, transposeKey) => {
+const transpose = (song: string, currentKey: string, transposeKey: string) => {
   let convertBack = false;
   let songString = song;
   if (!song.includes('[')) {
@@ -21,15 +21,15 @@ const transpose = (song, currentKey, transposeKey) => {
               const x = section.split(']');
               const wholeChord = x[0];
               let { chord, postfix } = extract(wholeChord, currentKey);
-              const index = keyChords[currentKey].indexOf(chord);
+              const index = keyChords.get(currentKey)!.indexOf(chord);
               if (postfix.includes('/')) {
                 // this is a bit hacky and needs to be refactored in a recursive sort of way
                 let [post, nextChord] = postfix.split('/');
                 nextChord = extract(nextChord, currentKey).chord;
                 const nextChordPostfix = extract(nextChord, currentKey).postfix;
-                const nextChordIndex = keyChords[currentKey].indexOf(nextChord);
+                const nextChordIndex = keyChords.get(currentKey)!.indexOf(nextChord);
                 post = `${post}/${
-                  keyChords[transposeKey][nextChordIndex]
+                  keyChords.get(transposeKey)![nextChordIndex]
                 }${nextChordPostfix}`;
                 postfix = post;
               }
@@ -38,7 +38,7 @@ const transpose = (song, currentKey, transposeKey) => {
               //   //  SUCH AS, C-D-G-Em
               //   //  SHOULD BE RECURSIVE
               // }
-              chord = keyChords[transposeKey][index] + postfix;
+              chord = keyChords.get(transposeKey)![index] + postfix;
               x[0] = chord;
               return x.join(']');
             }
@@ -50,9 +50,9 @@ const transpose = (song, currentKey, transposeKey) => {
     })
     .join('\n');
   if (convertBack) {
-    return parseChordpro(logic);
+    return parse(logic);
   }
   return logic;
 };
 
-module.exports = transpose;
+export { transpose };

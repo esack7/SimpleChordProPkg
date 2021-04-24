@@ -1,4 +1,4 @@
-const create = require('../../lib/create_chordpro');
+const { create_chordpro } = require('../../dist/lib/create_chordpro');
 
 describe('Testing create_chordpro.js file', () => {
   const singleChordLyric = `G              D\nHello there birdie!`;
@@ -20,56 +20,56 @@ describe('Testing create_chordpro.js file', () => {
   const withTabInput = `Verse\nD                 Bm\nJesus, name above all names\n\t  Em\nBeautiful Savior\n\t Asus A\nGlorious Lord\n  D              Bm\nEmmanuel, God is with us\n\t  Em     A         D  \nBlessed Redeemer,  Living Word`;
   const withTabExpectedOutput = `Verse\n[D]Jesus, name above [Bm]all names\nBeautiful [Em]Savior\nGlorious [Asus]Lord [A]\nEm[D]manuel, God is [Bm]with us\nBlessed Re[Em]deemer,[A]  Living W[D]ord`;
   test('Will return type string', () => {
-    expect(typeof create('string')).toBe(typeof 'string');
+    expect(typeof create_chordpro('string')).toBe(typeof 'string');
   });
   test('3 line block of Title/Chords/Lyrics will convert properly to 2 line chordpro', () => {
-    expect(create(singleTitleChordLyric)).toBe(singleTitleChordLyricChordpro);
+    expect(create_chordpro(singleTitleChordLyric)).toBe(singleTitleChordLyricChordpro);
   });
   test('A set of 3 line blocks of Title/Chords/Lyrics will convert properly to 5 lines of chordpro', () => {
-    expect(create(`${singleTitleChordLyric}\n\n${singleTitleChordLyric}`)).toBe(
+    expect(create_chordpro(`${singleTitleChordLyric}\n\n${singleTitleChordLyric}`)).toBe(
       `${singleTitleChordLyricChordpro}\n\n${singleTitleChordLyricChordpro}`
     );
   });
   test('Single line block of Description will remain unchanged', () => {
-    expect(create(singleDescription)).toBe(singleDescriptionChordPro);
+    expect(create_chordpro(singleDescription)).toBe(singleDescriptionChordPro);
   });
   test('2 single line blocks of Description will remain unchanged', () => {
-    expect(create(`${singleDescription}\n\n${singleDescription}`)).toBe(
+    expect(create_chordpro(`${singleDescription}\n\n${singleDescription}`)).toBe(
       `${singleDescriptionChordPro}\n\n${singleDescriptionChordPro}`
     );
   });
   test('A single line block of Description and 3 line block of Title/Chords/Lyrics will result in 4 lines of chordpro', () => {
-    expect(create(`${singleDescription}\n\n${singleTitleChordLyric}`)).toBe(
+    expect(create_chordpro(`${singleDescription}\n\n${singleTitleChordLyric}`)).toBe(
       `${singleDescriptionChordPro}\n\n${singleTitleChordLyricChordpro}`
     );
   });
   test('2 line block of Chord/Lyrics will convert properly to 1 line chordpro', () => {
-    expect(create(singleChordLyric)).toBe(singleChordLyricChordpro);
+    expect(create_chordpro(singleChordLyric)).toBe(singleChordLyricChordpro);
   });
   test('2 line block of Chord/Lyrics with white space after last chord will convert properly to 1 line chordpro', () => {
-    expect(create(singleChordLyricExtraChordWhiteSpace)).toBe(singleChordLyricChordpro);
+    expect(create_chordpro(singleChordLyricExtraChordWhiteSpace)).toBe(singleChordLyricChordpro);
   });
   test('2 line block of Chord/Lyrics with white space after last lyric will convert properly to 1 line chordpro', () => {
-    expect(create(singleChordLyricExtraLyricWhiteSpace)).toBe(singleChordLyricChordpro);
+    expect(create_chordpro(singleChordLyricExtraLyricWhiteSpace)).toBe(singleChordLyricChordpro);
   });
   test('2 line block of Chord/Lyrics where chords extend beyond lyrics will convert properly to 1 line chordpro', () => {
-    expect(create(singleLongChordLyric)).toBe(singleLongChordLyricChordpro);
+    expect(create_chordpro(singleLongChordLyric)).toBe(singleLongChordLyricChordpro);
   });
   test('2 line block of Title/Chord will convert properly to 2 line of chordpro', () => {
-    expect(create(singleTitleChord)).toBe(singleTitleChordChordpro);
+    expect(create_chordpro(singleTitleChord)).toBe(singleTitleChordChordpro);
   });
   test('2 line block of Intro/Chords will convert properly to 2 line of chordpro', () => {
-    expect(create(introChords)).toBe(introChordsChordpro);
+    expect(create_chordpro(introChords)).toBe(introChordsChordpro);
   });
   test('3 line block of Title/Chords/Lyrics plus newline will convert properly to 2 line chordpro', () => {
-    expect(create(`${singleTitleChordLyric}\n`)).toBe(
+    expect(create_chordpro(`${singleTitleChordLyric}\n`)).toBe(
       `${singleTitleChordLyricChordpro}`
     );
   });
   test('Verse that ends with two non-chord lines at end will convert to Chordpro properly', () => {
-    expect(create(verseRepeat)).toBe(verseRepeatChordpro);
+    expect(create_chordpro(verseRepeat)).toBe(verseRepeatChordpro);
   });
   test('Lines that contain a tab character will be properly converted to Chordpro', () => {
-    expect(create(withTabInput)).toBe(withTabExpectedOutput);
+    expect(create_chordpro(withTabInput)).toBe(withTabExpectedOutput);
   });
 });

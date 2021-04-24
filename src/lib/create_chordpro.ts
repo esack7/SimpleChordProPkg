@@ -1,14 +1,14 @@
-const chordCheck = require('./detectChords');
-const makeChordpro = require('./makeChordpro');
-const lineTrim = require('./lineTrim');
+import { detect as chordCheck } from './detectChords';
+import makeChordpro from './makeChordpro';
+import { lineTrim } from './lineTrim';
 
-module.exports = song => {
+const create_chordpro = (song: string) => {
   const trimSong = lineTrim(song);
   let songString = ''; // sets var to build new string
   const arrBlock = trimSong.split('\n\n'); // breaks into blocks separated by a line.
-  arrBlock.map(block => {
+  arrBlock.map((block: string) => {
     const blockLines = block.split('\n');
-    let previousChords = [];
+    let previousChords: string[] = [];
     blockLines.map((line, index) => {
       let trimline = line.trimRight();
       // Converts tab character to 8 space characters
@@ -46,7 +46,7 @@ module.exports = song => {
         songString = `${songString}${trimline}\n`;
         return null;
       }
-      const chords = [];
+      const chords: string[] = [];
       const chordSplit = trimline.split(' ');
       chordSplit.map(idx => {
         if (idx.length) {
@@ -82,3 +82,5 @@ module.exports = song => {
   });
   return songString.trim();
 };
+
+export { create_chordpro };

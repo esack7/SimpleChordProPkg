@@ -2,12 +2,13 @@
   "name": "simplechordpro",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest --coverage --verbose"
+    "build": "tsc",
+    "test": "tsc && jest --coverage --verbose"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/esack7/SimpleChordProPkg#readme",
   "devDependencies": {
-    "jest": "^26.5.2"
+    "jest": "^26.5.2",
+    "typescript": "^4.2.4"
   }
 }

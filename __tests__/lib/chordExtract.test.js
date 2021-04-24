@@ -1,4 +1,4 @@
-const extract = require('../../lib/chordExtract');
+const { extract } = require('../../dist/lib/chordExtract');
 
 describe('Testing chordExtract.js file', () => {
   test('"F#m" will return correct object', () => {

@@ -1,6 +1,6 @@
 const { describe, test, expect } = require("@jest/globals");
 
-const { createCP, parseCP, transpose, keys } = require('./../index.js');
+const { createCP, parseCP, transpose, keys } = require('./../dist/index.js');
 
 const chordLyric = `G              D\nHello there birdie!`;
 const chordpro = `[G]Hello there bir[D]die!`;

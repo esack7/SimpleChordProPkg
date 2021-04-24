@@ -1,4 +1,4 @@
-const detect = require('../../lib/detectChords');
+const { detect } = require('../../dist/lib/detectChords');
 
 describe('Testing dectectChords.js', () => {
   test('Passing in random text will return false', () => {

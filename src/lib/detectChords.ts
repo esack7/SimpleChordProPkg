@@ -1,6 +1,6 @@
-const makeChordpro = require('./makeChordpro');
+import makeChordpro from './makeChordpro';
 
-module.exports = songline => {
+const detect = (songline: string): boolean => {
   const chordCheck = makeChordpro(songline);
   const lineSplit = songline
     .split(' ')
@@ -14,3 +14,5 @@ module.exports = songline => {
   */
   return true;
 };
+
+export { detect };

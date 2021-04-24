@@ -1,34 +1,34 @@
-const lineTrim = require('./lineTrim');
-const detectChords = require('./detectChords');
+import { lineTrim } from './lineTrim';
+import { detect as detectChords } from './detectChords';
 
-const detectChordpro = line => {
+const detectChordpro = (line: string) => {
   if (line.split('').includes('[')) return true;
   return false;
 };
 
 // below using code from MDN docs to flatten an array
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
-const flattenDeep = arr1 =>
+const flattenDeep = (arr1: any[]): string[] =>
   arr1.reduce(
-    (acc, val) =>
+    (acc: string[], val) =>
       Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val),
     []
   );
 
-const detectLyrics = line => {
+const detectLyrics = (line: string) => {
   if (
     flattenDeep(
       line.split(' ').map(word => word.split('[').map(part => part.split(']')))
     )
-      .filter(ele => ele !== '')
-      .map(ele => detectChords(ele))
+      .filter((ele: string) => ele !== '')
+      .map((ele: string) => detectChords(ele))
       .includes(false)
   )
     return true;
   return false;
 };
 
-const removeBrackets = line =>
+const removeBrackets = (line: string) =>
   line
     .split('')
     .filter(char => {
@@ -38,7 +38,7 @@ const removeBrackets = line =>
     })
     .join('');
 
-const splitLine = line => {
+const splitLine = (line:string) => {
   let chordLine = '';
   let lyricLine = '';
   let chordOnly = false;
@@ -71,11 +71,11 @@ const splitLine = line => {
   return `${chordLine.trimRight()}\n${lyricLine.trimRight()}`;
 };
 
-module.exports = chordPro => {
+const parse_chordpro = (chordPro: string) => {
   const linetrim = lineTrim(chordPro);
   let parsed = '';
   const blockArr = linetrim.split('\n\n');
-  blockArr.map(block => {
+  blockArr.map((block: string) => {
     const lineArr = block.split('\n');
     lineArr.map(line => {
       if (detectChordpro(line)) {
@@ -98,3 +98,5 @@ module.exports = chordPro => {
   }
   return parsed.trim();
 };
+
+export { parse_chordpro as parse };
