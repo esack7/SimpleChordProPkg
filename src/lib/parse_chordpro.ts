@@ -68,7 +68,7 @@ const splitLine = (line:string) => {
     lyricLine = `${lyricLine}${char}`;
     return null;
   });
-  return `${chordLine.trimRight()}\n${lyricLine.trimRight()}`;
+  return `${chordLine.trimEnd()}\n${lyricLine.trimEnd()}`;
 };
 
 const parse_chordpro = (chordPro: string) => {
@@ -94,7 +94,7 @@ const parse_chordpro = (chordPro: string) => {
   });
   if (parsed.charCodeAt(1) === 32) {
     const newParsed = parsed.substring(1);
-    return newParsed.trimRight();
+    return newParsed.trimEnd();
   }
   return parsed.trim();
 };

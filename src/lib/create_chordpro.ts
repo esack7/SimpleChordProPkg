@@ -10,7 +10,7 @@ const create_chordpro = (song: string) => {
     const blockLines = block.split('\n');
     let previousChords: string[] = [];
     blockLines.map((line, index) => {
-      let trimline = line.trimRight();
+      let trimline = line.trimEnd();
       // Converts tab character to 8 space characters
       if (trimline.split('\t').length > 1) {
         trimline = trimline.split('\t').join('        ');
@@ -39,7 +39,7 @@ const create_chordpro = (song: string) => {
             }
             songString = `${songString}${a}${b}`;
           }
-          songString = `${songString.trimRight()}\n`;
+          songString = `${songString.trimEnd()}\n`;
           previousChords = [];
           return null;
         }
@@ -70,7 +70,7 @@ const create_chordpro = (song: string) => {
       if (
         !previousChords.length &&
         !!chords &&
-        blockLines[index + 1].trimRight() === ''
+        blockLines[index + 1].trimEnd() === ''
       ) {
         songString = `${songString}${makeChordpro(trimline)}\n`;
       }

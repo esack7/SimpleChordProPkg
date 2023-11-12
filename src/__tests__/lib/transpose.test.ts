@@ -1,4 +1,4 @@
-const { transpose } = require('./../../dist/lib/transpose');
+import { transpose } from '../../index';
 
 describe('Testing transpose.js', () => {
   const chordproKeyOfASong =
