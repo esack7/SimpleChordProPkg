@@ -1,59 +1,59 @@
-const chordCheck = require('./detectChords');
-const makeChordpro = require('./makeChordpro');
-const lineTrim = require('./lineTrim');
+import { detect as chordCheck } from "./detectChords";
+import makeChordpro from "./makeChordpro";
+import { lineTrim } from "./lineTrim";
 
-module.exports = song => {
+const create_chordpro = (song: string) => {
   const trimSong = lineTrim(song);
-  let songString = ''; // sets var to build new string
-  const arrBlock = trimSong.split('\n\n'); // breaks into blocks separated by a line.
-  arrBlock.map(block => {
-    const blockLines = block.split('\n');
-    let previousChords = [];
+  let songString = ""; // sets var to build new string
+  const arrBlock = trimSong.split("\n\n"); // breaks into blocks separated by a line.
+  arrBlock.map((block: string) => {
+    const blockLines = block.split("\n");
+    let previousChords: string[] = [];
     blockLines.map((line, index) => {
-      let trimline = line.trimRight();
+      let trimline = line.trimEnd();
       // Converts tab character to 8 space characters
-      if (trimline.split('\t').length > 1) {
-        trimline = trimline.split('\t').join('        ');
+      if (trimline.split("\t").length > 1) {
+        trimline = trimline.split("\t").join("        ");
       }
       // ///////////////////////////////////////
       if (!chordCheck(trimline) && !!trimline.trim()) {
         if (previousChords.length) {
           let longer;
-          const lyrics = trimline.split('');
+          const lyrics = trimline.split("");
           if (previousChords.length >= lyrics.length) {
             longer = previousChords.length;
             while (previousChords.length > lyrics.length) {
-              lyrics.push(' ');
+              lyrics.push(" ");
             }
           } else {
             longer = lyrics.length;
           }
           for (let j = 0; j < longer; j += 1) {
-            let a = '';
+            let a = "";
             if (previousChords[j]) {
               a = `[${previousChords[j]}]`;
             }
-            let b = '';
+            let b = "";
             if (lyrics[j]) {
               b = lyrics[j];
             }
             songString = `${songString}${a}${b}`;
           }
-          songString = `${songString.trimRight()}\n`;
+          songString = `${songString.trimEnd()}\n`;
           previousChords = [];
           return null;
         }
         songString = `${songString}${trimline}\n`;
         return null;
       }
-      const chords = [];
-      const chordSplit = trimline.split(' ');
-      chordSplit.map(idx => {
+      const chords: string[] = [];
+      const chordSplit = trimline.split(" ");
+      chordSplit.map((idx) => {
         if (idx.length) {
           const repeat = idx.length;
           chords.push(idx);
           for (let k = 0; k < repeat; k += 1) {
-            chords.push('');
+            chords.push("");
           }
         } else {
           chords.push(idx);
@@ -64,13 +64,13 @@ module.exports = song => {
         songString = `${songString}${makeChordpro(trimline)}\n`;
         return null;
       }
-      if (trimline === '') {
+      if (trimline === "") {
         songString = `${songString}\n`;
       }
       if (
         !previousChords.length &&
         !!chords &&
-        blockLines[index + 1].trimRight() === ''
+        blockLines[index + 1].trimEnd() === ""
       ) {
         songString = `${songString}${makeChordpro(trimline)}\n`;
       }
@@ -82,3 +82,5 @@ module.exports = song => {
   });
   return songString.trim();
 };
+
+export { create_chordpro };

@@ -1,11 +1,11 @@
-const makeChordpro = require('./makeChordpro');
+import makeChordpro from "./makeChordpro";
 
-module.exports = songline => {
+const detect = (songline: string): boolean => {
   const chordCheck = makeChordpro(songline);
   const lineSplit = songline
-    .split(' ')
-    .filter(ele => ele !== '')
-    .map(ele => makeChordpro(ele) === ele);
+    .split(" ")
+    .filter((ele) => ele !== "")
+    .map((ele) => makeChordpro(ele) === ele);
   if (songline === chordCheck) return false;
   if (lineSplit.includes(true)) return false;
   /* This (above) checks if each line that contains chords contains only chords 
@@ -14,3 +14,5 @@ module.exports = songline => {
   */
   return true;
 };
+
+export { detect };
