@@ -1,4 +1,4 @@
 interface ChordCompositionInterface {
-    chord: string,
-    postfix: string
+  chord: string;
+  postfix: string;
 }

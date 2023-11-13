@@ -1,8 +1,8 @@
-import { lineTrim } from './lineTrim';
-import { detect as detectChords } from './detectChords';
+import { lineTrim } from "./lineTrim";
+import { detect as detectChords } from "./detectChords";
 
 const detectChordpro = (line: string) => {
-  if (line.split('').includes('[')) return true;
+  if (line.split("").includes("[")) return true;
   return false;
 };
 
@@ -18,9 +18,11 @@ const flattenDeep = (arr1: any[]): string[] =>
 const detectLyrics = (line: string) => {
   if (
     flattenDeep(
-      line.split(' ').map(word => word.split('[').map(part => part.split(']')))
+      line
+        .split(" ")
+        .map((word) => word.split("[").map((part) => part.split("]")))
     )
-      .filter((ele: string) => ele !== '')
+      .filter((ele: string) => ele !== "")
       .map((ele: string) => detectChords(ele))
       .includes(false)
   )
@@ -30,22 +32,22 @@ const detectLyrics = (line: string) => {
 
 const removeBrackets = (line: string) =>
   line
-    .split('')
-    .filter(char => {
-      if (char === '[') return false;
-      if (char === ']') return false;
+    .split("")
+    .filter((char) => {
+      if (char === "[") return false;
+      if (char === "]") return false;
       return true;
     })
-    .join('');
+    .join("");
 
-const splitLine = (line:string) => {
-  let chordLine = '';
-  let lyricLine = '';
+const splitLine = (line: string) => {
+  let chordLine = "";
+  let lyricLine = "";
   let chordOnly = false;
-  const splitLineArr = line.split('');
+  const splitLineArr = line.split("");
   let chordHold = 0;
   splitLineArr.map((char, index) => {
-    if (char === '[' || char === ']') {
+    if (char === "[" || char === "]") {
       chordOnly = !chordOnly;
       return null;
     }
@@ -54,7 +56,7 @@ const splitLine = (line:string) => {
       chordHold += 1;
       return null;
     }
-    if (splitLineArr[index + 1] === '[') {
+    if (splitLineArr[index + 1] === "[") {
       chordLine = `${chordLine} `;
       lyricLine = `${lyricLine}${char}`;
       return null;
@@ -73,11 +75,11 @@ const splitLine = (line:string) => {
 
 const parse_chordpro = (chordPro: string) => {
   const linetrim = lineTrim(chordPro);
-  let parsed = '';
-  const blockArr = linetrim.split('\n\n');
+  let parsed = "";
+  const blockArr = linetrim.split("\n\n");
   blockArr.map((block: string) => {
-    const lineArr = block.split('\n');
-    lineArr.map(line => {
+    const lineArr = block.split("\n");
+    lineArr.map((line) => {
       if (detectChordpro(line)) {
         if (detectLyrics(line)) {
           parsed = `${parsed}\n${splitLine(line)}`;
